@@ -10,19 +10,19 @@ After each purchase, the customer is prompted to purchase another item, but the 
 
 The following image shows the products table in the bamazon database befor customer input. Notice that the Monopoly Game item has a stock quantity of 100.
 
-![Products_Before image](productsBefore.png)
+![Products_Before image](assets/images/productsBefore.png)
 
 The following image shows the customer purchasing 3 Monopoly games and information about that purchase, including its total cost.
 
-![Customer_Purchase_Under_Stock_Quantity image](Under_Stock_Quantity.png)
+![Customer_Purchase_Under_Stock_Quantity image](assets/images/Under_Stock_Quantity.png)
 
 The following image shows the product table in the bamazon database after customer input. Notice that the Monopoly Game item now has a stock quantity of 97 (100 games less the 3 games that the customer purchased).  
 
-![Products_After image](productsAfter.png)
+![Products_After image](assets/images/productsAfter.png)
 
 The following image shows the customer attempting to purchase 200 Monopoly games and the message that is displayed about insufficient quantities available to fulfill the customer order.
 
-![Customer_Purchase_Over_Stock_Quantity image](Over_Stock_Quantity.png)
+![Customer_Purchase_Over_Stock_Quantity image](assets/images/Over_Stock_Quantity.png)
 
 # Tools Used
 
