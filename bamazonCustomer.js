@@ -37,25 +37,25 @@ table.push(
 );
 
 function userOrder() {
-    // Query the database for all products the user can purchase.
+    // Query the database for all products the customer can purchase.
     connection.query("SELECT * FROM products", function(err, results) {
         if (err) throw err;
         // console.log(results);
-        // Display the table of products the user can purchase.
+        // Display the table of products customer can purchase.
         console.log(table.toString());
-        // Prompt the user to select an item and an item amount.
+        // Prompt the customer to select an item and an item amount.
         inquirer
             .prompt([{
                     name: "purchase",
                     type: "input",
                     message: "What is the Id of the item you want to purchase? (Enter 'q' to exit)",
                     validate: function(value) {
-                        // Exit the application when the user presses the 'q' key.
+                        // Exit the application when the customer presses the 'q' key.
                         if ((value) === "q") {
                             console.log("\n  Exiting...");
                             process.exit();
                         }
-                        // Display the appropropriate message when the user presses a non-number key, including the space bar, Enter, and a special character. 
+                        // Display the appropropriate message if the customer presses a non-number key, such as a letter key, the space bar, the Enter key, or a special character key. 
                         else if (isNaN(parseInt(value)) === true) {
                             console.log("\n  You must enter a number.");
                             return false;
@@ -68,12 +68,12 @@ function userOrder() {
                     type: "input",
                     message: "How many would you like? (Enter 'q' to exit)",
                     validate: function(value) {
-                        // Exit the application when the user presses the 'q' key.
+                        // Exit the application when the customer presses the 'q' key.
                         if ((value) === "q") {
                             console.log("\n  Exiting...");
                             process.exit();
                         }
-                        // Display the appropropriate message when the user presses a non-number key, including the space bar, Enter, and a special character.
+                        // Display the appropropriate message if the customer presses a non-number key, such as a letter key, the space bar, the Enter key, or a special character key.
                         else if (isNaN(parseInt(value)) === true) {
                             console.log("\n  You must enter a number.");
                             return false;
@@ -91,7 +91,7 @@ function userOrder() {
                 }
                 // Determine if the purchase quantity is less than the stock quantity.
                 if (parseInt(answer.quantity) < parseInt(purchasedItem.stock_quantity)) {
-                    // Decrease the stock quantity in the database by the purchase quantity, provide the user information about the purchase, and start over.
+                    // Decrease the stock quantity in the database by the purchase quantity, provide the customer information about the purchase, and start over.
                     connection.query(
                         "UPDATE products SET ? WHERE ?", [{
                                 stock_quantity: (purchasedItem.stock_quantity - answer.quantity)
@@ -102,7 +102,7 @@ function userOrder() {
                         ],
                         function(error) {
                             if (error) throw err;
-                            console.log("\n  Item you purchased: " + purchasedItem.product_name + "\n  Quantity of this item you purchased: " + answer.quantity);
+                            console.log("\n  Item you purchased: " + purchasedItem.product_name + "\n  Quantity of this item you purchased: " + answer.quantity + "\n  Your total cost: " + "$" + parseFloat(purchasedItem.price * answer.quantity).toFixed(2));
                             console.log("=============================================================");
 
                             userOrder();
@@ -117,6 +117,3 @@ function userOrder() {
             });
     });
 }
-
-// connection.end();
-
