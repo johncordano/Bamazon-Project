@@ -31,6 +31,7 @@ The following image shows the customer attempting to purchase 200 Monopoly games
 # Manager View
 
 The bamazonManager.js file controls the manager view. In this view, the manager can complete the following tasks:
+
 	- View the products for sale.
 	- View the products with less than 50 items in stock.
 	- Add to existing inventory.
@@ -51,7 +52,7 @@ The following image shows the manager adding 50 Monoply games. Notice that the p
 
 ![Replenish_Inventory_Before image](assets/images/replenishInventoryBefore.png)
 
-The following image shows the products table after the manager adds the Monopoly games. Notice that the products table now shows 150 games.
+The following image shows the products table after the manager adds the Monopoly games. Notice that the products table now shows 150 games (100 games plus the 50 games that the manager added).
 
 ![Replenish_Inventory_After image](assets/images/replenishInventoryAfter.png)
 
