@@ -12,7 +12,6 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if (err) throw err;
-    // console.log("connected as id " + connection.threadId);
     // Run the userOrder function after the connection is established.
     userOrder();
 });
@@ -21,7 +20,6 @@ function userOrder() {
     // Query the database for all products the customer can purchase.
     connection.query("SELECT * FROM products", function(err, results) {
         if (err) throw err;
-        // console.log(results);
         // Create the heading for the table of products. 
         var table = new Table ({
             head: ['Item Id', 'Product', 'Price'],
@@ -72,7 +70,7 @@ function userOrder() {
                     }
                 }
             ]).then(function(answer) {
-                // Retrieve information about the purchased item.
+                // Retrieve information about the item to purchase.
                 var purchasedItem;
                 for (var i = 0; i < results.length; i++) {
                     if (results[i].item_id == answer.purchase) {
