@@ -32,11 +32,11 @@ The following image shows the customer attempting to purchase 200 Monopoly games
 
 The bamazonManager.js file controls the manager view. In this view, the manager can complete the following tasks:
 
-	- View the products for sale.
-	- View the products with less than 50 items in stock.
-	- Add to existing inventory.
-	- Add a new product to existing inventory.
-	- Exit the application.
+- View the products for sale.
+- View the products with less than 50 items in stock.
+- Add to existing inventory.
+- Add a new product to existing inventory.
+- Exit the application.
 
  To add to existing inventory, the manager enters the Id of the item and the quantity of that item to add to inventory. The stock quantity of the designated item is increased by the manager-input quantity. After manager input, the application displays a message telling the manager to view the products for sale to see the replenished inventory.
 
