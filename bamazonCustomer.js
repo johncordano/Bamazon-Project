@@ -16,6 +16,7 @@ connection.connect(function(err) {
     userOrder();
 });
 
+// Create the userOrder function.
 function userOrder() {
     // Query the database for all products the customer can purchase.
     connection.query("SELECT * FROM products", function(err, results) {
@@ -25,13 +26,13 @@ function userOrder() {
             head: ['Item Id', 'Product', 'Price'],
             colWidths: [15, 15, 15]
         });
-        // Loop through the results of the product table selection, and populate the new table with data.
+        // Loop through the results of the product table query, and populate the new table with data.
         for (var i = 0; i < results.length; i++) {
         table.push([results[i].item_id, results[i].product_name, parseFloat(results[i].price).toFixed(2)]);
         }
         // Display the table of products that the customer can purchase.
         console.log(table.toString());
-        // Prompt the customer to select an item and an item amount.
+        // Prompt the customer to select an item and enter an item quantity.
         inquirer
             .prompt([{
                     name: "purchase",
@@ -79,7 +80,7 @@ function userOrder() {
                 }
                 // Determine if the purchase quantity is less than the stock quantity.
                 if (parseInt(answer.quantity) < parseInt(purchasedItem.stock_quantity)) {
-                    // Decrease the stock quantity in the database by the purchase quantity, provide the customer information about the purchase, and start over.
+                    // Decrease the stock quantity in the table of products of the database by the purchase quantity, provide the customer information about the purchase, and start over.
                     connection.query(
                         "UPDATE products SET ? WHERE ?", [{
                                 stock_quantity: (purchasedItem.stock_quantity - answer.quantity)
@@ -97,7 +98,7 @@ function userOrder() {
                         }
                     );
                 } else {
-                    // If the order quantity is to high, display an appropriate message, and start over.
+                    // If the purchase quantity is to high, display an appropriate message, and start over.
                     console.log("\n  We have insufficient quantities to fullfill your order.");
                     console.log("=============================================================");
                     userOrder();

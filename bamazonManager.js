@@ -16,6 +16,7 @@ connection.connect(function(err) {
     managerMenu();
 });
 
+// Create the managerMenu function.
 function managerMenu() {
     // Prompt the manager to select a task from a menu.
     inquirer
@@ -42,16 +43,17 @@ function managerMenu() {
         });
 }
 
+// Create the viewProducts function.
 function viewProducts() {
     // Query the database for all products.
     connection.query("SELECT * FROM products", function(err, results) {
         if (err) throw err;
-        // Create the heading for the table of products. 
+        // Create the headings for the table of products. 
         var table = new Table({
             head: ['Item Id', 'Product', 'Department', 'Price', 'Stock Quantity'],
-            colWidths: [10, 20, 20, 20, 20],
+            colWidths: [10, 20, 15, 10, 18],
         });
-        // Loop through the results of the product table selection, and populate the new table with all data.
+        // Loop through the results of the product table query, and populate the new table with all data.
         for (var i = 0; i < results.length; i++) {
             table.push([results[i].item_id, results[i].product_name, results[i].department_name, parseFloat(results[i].price).toFixed(2), results[i].stock_quantity]);
         }
@@ -61,16 +63,17 @@ function viewProducts() {
     });
 }
 
+// Create the viewLowInventory function.
 function viewLowInventory() {
     // Query the database for all products.
     connection.query("SELECT * FROM products", function(err, results) {
         if (err) throw err;
-        // Create the heading for the table of products. 
+        // Create the headings for the table of products. 
         var table = new Table({
             head: ['Item Id', 'Product', 'Department', 'Price', 'Stock Quantity'],
-            colWidths: [10, 20, 20, 20, 20],
+            colWidths: [10, 20, 15, 10, 18],
         });
-        // Loop through the results of the product table selection, and populate the new table with data for products that have a stock quantity less than 50.
+        // Loop through the results of the product table query, and populate the new table with data for products that have a stock quantity less than 50.
         for (var i = 0; i < results.length; i++) {
             if (results[i].stock_quantity < 50) {
                 table.push([results[i].item_id, results[i].product_name, results[i].department_name, parseFloat(results[i].price).toFixed(2), results[i].stock_quantity]);
@@ -82,11 +85,12 @@ function viewLowInventory() {
     });
 }
 
+// Create the addToInventory function.
 function addToInventory() {
     // Query the database for all products.
     connection.query("SELECT * FROM products", function(err, results) {
         if (err) throw err;
-        // Prompt the manager to select an item for which to replenish inventory.
+        // Prompt the manager to select an item and enter an item quantity.
         inquirer
             .prompt([{
                     name: "replenish",
@@ -142,6 +146,7 @@ function addToInventory() {
     });
 }
 
+// Create the addProductToInventory function.
 function addProductToInventory() {
     // Prompt the manager for information about the product to add to inventory.
     inquirer
@@ -152,8 +157,9 @@ function addProductToInventory() {
             },
             {
                 name: "department_name",
-                type: "input",
-                message: "What is the department for this product?"
+                type: "list",
+                message: "Select a department.",
+                choices: ["Board Games", "Video Games", "Film", "Apparal", "Food & Drink"]
             },
             {
                 name: "price",
