@@ -17,31 +17,21 @@ connection.connect(function(err) {
     userOrder();
 });
 
-// Create the table of products. 
-var table = new Table({
-    head: ['Item Id', 'Product', 'Price'],
-    colWidths: [15, 15, 15]
-});
-// Populate the table with data. 
-table.push(
-    ['1', 'Monopoly', '20.50'], 
-    ['2', 'Checkers', '10.25'], 
-    ['3', 'Kill Everyone', '25.00'], 
-    ['4', 'Slasher World', '35.00'], 
-    ['5', 'Casablanca', '10.50'], 
-    ['6', 'The Birds', '20.50'], 
-    ['7', 'mens pants', '15.75'], 
-    ['8', 'mens shirts', '9.75'], 
-    ['9', 'Twinkies case', '40.00'], 
-    ['10', 'Coke case', '50.00'],
-);
-
 function userOrder() {
     // Query the database for all products the customer can purchase.
     connection.query("SELECT * FROM products", function(err, results) {
         if (err) throw err;
         // console.log(results);
-        // Display the table of products customer can purchase.
+        // Create the heading for the table of products. 
+        var table = new Table ({
+            head: ['Item Id', 'Product', 'Price'],
+            colWidths: [15, 15, 15]
+        });
+        // Loop through the results of the product table selection, and populate the new table with data.
+        for (var i = 0; i < results.length; i++) {
+        table.push([results[i].item_id, results[i].product_name, parseFloat(results[i].price).toFixed(2)]);
+        }
+        // Display the table of products that the customer can purchase.
         console.log(table.toString());
         // Prompt the customer to select an item and an item amount.
         inquirer
